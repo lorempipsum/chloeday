@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Untitled</title>
+<style>
+	body {
+		background: #000;
+		margin: 0;
+	}
+</style>
+<script >
+		var canvas = document.body.appendChild(document.createElement('canvas')),
+			context = canvas.getContext('2d');
+		context = canvas.getContext('2d');
+		context.globalCompositeOperation = 'lighter';
+		canvas.width = 1280;
+		canvas.height = 800;
+		var count = 0;
+		var phrase1 = "Happy Birthday Chloe";
+
+		draw(phrase1.split(" "));
+		var phrase2 = "This is not a glitch, the simulation is fine.";
+		var phrase3 = "Man in chair is still in chair";
+		var phrase4 = "Stroke the tree...... You fluffy cunt";
+		var phrase5 = "Here smoke this, it will be useful on your journey.........";
+		var phrase6 = "Barney and Amy will be here for you beyond the void";
+
+		var stripCount = 60, stripX = new Array(), stripY = new Array(), dY = new Array(), stripFontSize = new Array();
+
+		for (var i = 0; i < stripCount; i++) {
+			stripX[i] = Math.floor(Math.random() * 1265);
+			stripY[i] = -100;
+			dY[i] = Math.floor(Math.random() * 7) + 3;
+			stripFontSize[i] = Math.floor(Math.random() * 16) + 8;
+		}
+
+		var theColors = ['#cefbe4', '#81ec72', '#5cd646', '#54d13c', '#4ccc32', '#43c728'];
+
+		var elem, context, timer;
+
+		function drawStrip(x, y, phrase) {
+			for (var k = 0; k <= 20; k++) {
+				var randChar = phrase[Math.floor(Math.random() * phrase.length)];
+				if (context.fillText) {
+					switch (k) {
+						case 0:
+							context.fillStyle = theColors[0]; break;
+						case 1:
+							context.fillStyle = theColors[1]; break;
+						case 3:
+							context.fillStyle = theColors[2]; break;
+						case 7:
+							context.fillStyle = theColors[3]; break;
+						case 13:
+							context.fillStyle = theColors[4]; break;
+						case 17:
+							context.fillStyle = theColors[5]; break;
+					}
+					context.fillText(randChar, x, y);
+				}
+				y -= stripFontSize[k];
+			}
+		}
+
+		function draw(phrase) {
+			// clear the canvas and set the properties
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			context.shadowOffsetX = context.shadowOffsetY = 0;
+			context.shadowBlur = 8;
+			context.shadowColor = '#94f475';
+
+			for (var j = 0; j < stripCount; j++) {
+				context.font = stripFontSize[j] + 'px MatrixCode';
+				context.textBaseline = 'top';
+				context.textAlign = 'center';
+
+				if (stripY[j] > 1358) {
+					stripX[j] = Math.floor(Math.random() * canvas.width);
+					stripY[j] = -100;
+					dY[j] = Math.floor(Math.random() * 7) + 3;
+					stripFontSize[j] = Math.floor(Math.random() * 16) + 8;
+					drawStrip(stripX[j], stripY[j], phrase);
+				} else drawStrip(stripX[j], stripY[j], phrase);
+
+				stripY[j] += dY[j];
+			}
+			newPhrase = phrase1;
+			if (count > 70) {
+				newPhrase = phrase2;
+			}
+			if (count > 200) {
+				newPhrase = phrase3;
+			}
+			if (count > 350) {
+				newPhrase = phrase4;
+			}
+			if (count > 480) {
+				newPhrase = phrase5;
+			}
+			if (count > 590) {
+				newPhrase = phrase6;
+			}
+			if (count > 800) {
+				count = 0;
+			}
+			newPhrase = newPhrase.split(" ");
+			count = count + 1;
+			setTimeout(draw, 70, newPhrase);
+		}
+
+</script>
+
+</head>
+
+<body>
+</body>
+
+</html>
